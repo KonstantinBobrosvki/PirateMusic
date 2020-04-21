@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PirateMusic.MainPage">
+
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1.5*"/>
+            
+        </Grid.RowDefinitions>
+
+        <SearchBar x:Name="SearchBar" Grid.Row="0" BackgroundColor="LightGray"></SearchBar>
+        <Grid x:Name="ResultsGrid"  Grid.Row="1"></Grid>
+        <Button x:Name="SearchButton" Grid.Row="2" Text="Search" BackgroundColor="#0EC10E"></Button>
+    </Grid>
+
+</ContentPage>

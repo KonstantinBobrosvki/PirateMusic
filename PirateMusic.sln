@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicProviders", "MusicProviders\MusicProviders.csproj", "{0A09F631-E516-4499-9BC8-0EAEA53C2808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandTests", "HandTests\HandTests.csproj", "{525C9C98-04C1-4771-B72F-5A37B52FBC74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PirateMusic.Android", "PirateMusic\PirateMusic.Android\PirateMusic.Android.csproj", "{D3CEB4D0-122F-455A-AB40-7E52FE34F049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PirateMusic", "PirateMusic\PirateMusic\PirateMusic.csproj", "{598F6C6E-21C0-48B6-9850-404F7E7A5042}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A09F631-E516-4499-9BC8-0EAEA53C2808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A09F631-E516-4499-9BC8-0EAEA53C2808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A09F631-E516-4499-9BC8-0EAEA53C2808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A09F631-E516-4499-9BC8-0EAEA53C2808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{598F6C6E-21C0-48B6-9850-404F7E7A5042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598F6C6E-21C0-48B6-9850-404F7E7A5042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598F6C6E-21C0-48B6-9850-404F7E7A5042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598F6C6E-21C0-48B6-9850-404F7E7A5042}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {245BA63A-1D5F-4FFA-9193-6966108EC6F9}
+	EndGlobalSection
+EndGlobal
