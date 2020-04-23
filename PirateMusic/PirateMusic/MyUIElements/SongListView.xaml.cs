@@ -35,7 +35,15 @@ namespace PirateMusic.MyUIElements
         private void PlayButton_Clicked(object sender, EventArgs e)
         {
             var player = DependencyService.Get<PirateMusic.DepencetyInterfaces.IAudioPlayer>();
-            player.Current = ((Button)sender).BindingContext as string;
+            var toast = DependencyService.Get<PirateMusic.DepencetyInterfaces.IMessageBox>();
+            string name =((Button)sender).BindingContext as string;
+            var song = Items.Where(c => c.Name == name).First();
+            if (song.FullLink == null)
+            {
+                toast.Show("Audio hasnt load yet.Try after some secons");
+                return;
+            }
+            player.Current = song.FullLink;
             player.Play();
         }
     }

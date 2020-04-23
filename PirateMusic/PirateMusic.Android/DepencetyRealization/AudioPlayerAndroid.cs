@@ -10,25 +10,26 @@ namespace PirateMusic.Droid
     public class AudioSerivce : IAudioPlayer
     {
         
-        MediaPlayer player;
+        static MediaPlayer player = new MediaPlayer();
 
         public string Current { get; set; }
 
         public AudioSerivce()
         {
-            player = new MediaPlayer();
+            
         }
 
         public bool Play()
-        {    
+        {
 
-
+            if (player.IsPlaying)
+                return false;
                
-                this.player.SetDataSource(Current);
-                this.player.SetAudioStreamType(Stream.Music);
-                this.player.Prepare();
+                player.SetDataSource(Current);
+                player.SetAudioStreamType(Stream.Music);
+                player.Prepare();
             
-                this.player.Start();
+                player.Start();
            
 
 
@@ -37,12 +38,18 @@ namespace PirateMusic.Droid
 
         public bool Stop()
         {
-            this.player.Stop();
+            if (!player.IsPlaying)
+                return false;
+
+            player.Stop();
             return true;
         }
 
         public bool Pause()
         {
+            if (!player.IsPlaying)
+                return false;
+
             player.Pause();
             return true;
         }

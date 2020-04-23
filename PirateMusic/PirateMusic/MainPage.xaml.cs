@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using MusicProviders;
 using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 using PirateMusic.MyUIElements;
+using System.Threading;
 
 namespace PirateMusic
 {
@@ -30,32 +31,43 @@ namespace PirateMusic
 
         private async void SearchButton_Clicked(object sender, EventArgs e)
         {
-            
-                    //YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-                   
-                    //SomeName.Items.Clear();
-                    //await foreach (var item in youtubeMusicProvider.Some(SearchBar.Text))
-                    //{
-                    //    SomeName.Items.Add(item);
-                    //}
-                   
-                
+
+            //YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+
+            //SomeName.Items.Clear();
+            //await foreach (var item in youtubeMusicProvider.Some(SearchBar.Text))
+            //{
+            //    SomeName.Items.Add(item);
+            //}
 
 
-            //return;
+
+            new Thread(async() => {
+                YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+
+                SomeName.Items.Clear();
+
+                await foreach (var item in youtubeMusicProvider.GetSongs(SearchBar.Text, 10))
+                {
+                    SomeName.Items.Add(item);
+                }
+            }).Start();
+
+            return;
             _ = Task.Run(
                 async () =>
                 {
                     YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-                    var songs = await youtubeMusicProvider.GetSongs(SearchBar.Text);
+
                     SomeName.Items.Clear();
-                    foreach (var item in songs)
+
+                    await foreach (var item in youtubeMusicProvider.GetSongs(SearchBar.Text, 10))
                     {
                         SomeName.Items.Add(item);
                     }
-                  
+
                 });
-           
+
         }
     }
 }
