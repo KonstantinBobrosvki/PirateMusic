@@ -23,20 +23,39 @@ namespace PirateMusic
 
         private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            YoutubeMusicProvider musicProvider = new YoutubeMusicProvider();
-            var query = ((Xamarin.Forms.SearchBar)sender).Text;
-            var songs= await musicProvider.GetSongs(query);
-            foreach (var item in songs)
-            {
-
-            }
+           
         }
 
         
 
-        private void SearchButton_Clicked(object sender, EventArgs e)
+        private async void SearchButton_Clicked(object sender, EventArgs e)
         {
+            
+                    //YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+                   
+                    //SomeName.Items.Clear();
+                    //await foreach (var item in youtubeMusicProvider.Some(SearchBar.Text))
+                    //{
+                    //    SomeName.Items.Add(item);
+                    //}
+                   
+                
 
+
+            //return;
+            _ = Task.Run(
+                async () =>
+                {
+                    YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+                    var songs = await youtubeMusicProvider.GetSongs(SearchBar.Text);
+                    SomeName.Items.Clear();
+                    foreach (var item in songs)
+                    {
+                        SomeName.Items.Add(item);
+                    }
+                  
+                });
+           
         }
     }
 }

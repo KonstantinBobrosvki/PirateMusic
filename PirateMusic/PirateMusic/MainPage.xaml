@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:CustomRenderer;assembly=CustomRenderer"
+            
+             xmlns:MyUIElements="clr-namespace:PirateMusic.MyUIElements"
              mc:Ignorable="d"
              x:Class="PirateMusic.MainPage">
 
@@ -17,7 +18,9 @@
 
         <SearchBar x:Name="SearchBar" Grid.Row="0" BackgroundColor="LightGray" SearchButtonPressed="SearchBar_SearchButtonPressed"></SearchBar>
         <ScrollView Grid.Row="1">
-          
+            <MyUIElements:SongListView x:Name="SomeName">
+                
+            </MyUIElements:SongListView>
             
         </ScrollView>
         

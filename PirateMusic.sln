@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandTests", "HandTests\HandTests.csproj", "{525C9C98-04C1-4771-B72F-5A37B52FBC74}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PirateMusic.Android", "PirateMusic\PirateMusic.Android\PirateMusic.Android.csproj", "{D3CEB4D0-122F-455A-AB40-7E52FE34F049}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PirateMusic", "PirateMusic\PirateMusic\PirateMusic.csproj", "{598F6C6E-21C0-48B6-9850-404F7E7A5042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicProviders", "MusicProviders\MusicProviders.csproj", "{DBB79C36-AF55-48CD-B4E1-DE57134A1F0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicProviders", "MusicProviders\MusicProviders.csproj", "{DBB79C36-AF55-48CD-B4E1-DE57134A1F0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{525C9C98-04C1-4771-B72F-5A37B52FBC74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3CEB4D0-122F-455A-AB40-7E52FE34F049}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
