@@ -29,7 +29,7 @@ namespace PirateMusic.MyUIElements
 
         private void SongsViewList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-          
+           
         }
 
         private void PlayButton_Clicked(object sender, EventArgs e)

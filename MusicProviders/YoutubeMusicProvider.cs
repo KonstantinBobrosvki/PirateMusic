@@ -13,72 +13,55 @@ namespace MusicProviders
     public class YoutubeMusicProvider : MusicProvider
     {
         YoutubeClient YoutubeClient = new YoutubeClient();
-
-        public async IAsyncEnumerable<Song> Some(string name)
+         
+        public IAsyncEnumerable<Video> Some()
         {
-          
 
             SearchClient search = YoutubeClient.Search;
 
-            var task = search.GetVideosAsync(name);
-
-            var songs = task.BufferAsync(6).Result;
-
-            var results = new List<Song>(songs.Count);
-
-            for (int i = 0; i < 5; i++)
-            {
-                var item = songs[i];
-                var id = item.Id;
-                
-            //  var streamManifest = YoutubeClient.Videos.Streams.Get;
-
-                Song song = new Song()
-                {
-                    Author = item.Author,
-                    Name = item.Title //,
-                   // FullLink = streamManifest.GetAudioOnly().WithHighestBitrate().Url
-                };
-
-                yield return song;
-            }
 
 
-           
+           return search.GetVideosAsync("блог");
         }
-
-        public async override IAsyncEnumerable<Song> GetSongs(string name,int count)
+      
+        public override IEnumerable<Song> GetSongs(string name,int count)
         {
            
             SearchClient search = YoutubeClient.Search;
 
-            var task = search.GetVideosAsync(name);
 
             
-          
+            var task = search.GetVideosAsync(name);
+        
             var songs = task.BufferAsync(count).Result;
 
             var results = new List<Song>(songs.Count);
 
+            if(songs.Count==0)
+            {
+                return new List<Song>();
+            }
+
             for (int i = 0; i < count; i++)
             {
                 var item = songs[i];
-                var id = item.Id;
-
-                
+                var id = item.Id;         
 
                 Song song = new Song()
                 {
                     Author = item.Author,
-                    Name = item.Title     
+                    Name = item.Title,
+                    ImageURL=item.Thumbnails.LowResUrl
                 };
+
+
                 _ = Task.Run( async () => {
                     var streamManifest =await  YoutubeClient.Videos.Streams.GetManifestAsync(id); //this shit is 16s need sped up
                     song.FullLink =streamManifest.GetAudioOnly().WithHighestBitrate().Url;
                 });
-                yield return song;
+               // yield return song;
             }
-            
+            return results;
 
             
         }
