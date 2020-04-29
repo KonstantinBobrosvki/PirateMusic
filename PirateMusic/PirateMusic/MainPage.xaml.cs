@@ -23,19 +23,19 @@ namespace PirateMusic
             InitializeComponent();
         }
 
-        private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        private  void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
            
         }
 
         
 
-        private async void SearchButton_Clicked(object sender, EventArgs e)
+        private void SearchButton_Clicked(object sender, EventArgs e)
         {
 
-            //YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+            YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
 
-            //SomeName.Items.Clear();
+            SomeName.Items.Clear();
             //await foreach (var item in youtubeMusicProvider.Some(SearchBar.Text))
             //{
             //    SomeName.Items.Add(item);
@@ -52,17 +52,17 @@ namespace PirateMusic
 
             new Thread(async () =>
             {
-                YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-
+                // YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+              //  RuMusicMusicProvider youtubeMusicProvider = new RuMusicMusicProvider();
 
 
                 SomeName.Items.Clear();
                 var result = youtubeMusicProvider.GetSongs(SearchBar.Text, 10);
-                var temp = 513;
                 foreach (var item in result)
                 {
-                    SomeName.Items.Add(item);
+                   SomeName.Items.Add(item);
                 }
+
             }).Start();
 
 
