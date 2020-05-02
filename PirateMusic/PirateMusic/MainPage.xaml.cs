@@ -9,7 +9,7 @@ using MusicProviders;
 using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 using PirateMusic.MyUIElements;
 using System.Threading;
-using YoutubeExplode;
+
 
 namespace PirateMusic
 {
@@ -35,26 +35,10 @@ namespace PirateMusic
 
             YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
 
-            SomeName.Items.Clear();
-            //await foreach (var item in youtubeMusicProvider.Some(SearchBar.Text))
-            //{
-            //    SomeName.Items.Add(item);
-            //}
-
-            //YoutubeClient youtubeClient = new YoutubeClient();
-
-            //YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-
-            //foreach (var item in youtubeClient.Search.GetVideosAsync("блог").BufferAsync(20).Result)
-            //{
-            //    SomeName.Items.Add(new Song() { Name = item.Title, Author = item.Description });
-            //}
-
+           
             new Thread(async () =>
             {
-                // YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-              //  RuMusicMusicProvider youtubeMusicProvider = new RuMusicMusicProvider();
-
+                
 
                 SomeName.Items.Clear();
                 var result = youtubeMusicProvider.GetSongs(SearchBar.Text, 10);
@@ -66,19 +50,6 @@ namespace PirateMusic
             }).Start();
 
 
-            //_ = Task.Run(
-            //    async () =>
-            //    {
-            //        YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-
-            //        SomeName.Items.Clear();
-
-            //        foreach (var item in youtubeMusicProvider.GetSongs(SearchBar.Text, 10))
-            //        {
-            //            SomeName.Items.Add(item);
-            //        }
-
-            //    });
 
         }
     }

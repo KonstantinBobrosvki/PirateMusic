@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DotNetTools.SharpGrabber;
+using DotNetTools.SharpGrabber.Internal.Grabbers;
+using DotNetTools.SharpGrabber.Media;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,25 +9,22 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using YoutubeExplode;
-using YoutubeExplode.Search;
-using YoutubeExplode.Videos;
-using YoutubeExplode.Videos.Streams;
+
 
 namespace MusicProviders
 {
     public class YoutubeMusicProvider : MusicProvider
     {
-        YoutubeClient YoutubeClient = new YoutubeClient();
+        
 
         const string videoId = "videoId";
 
-        private IEnumerable<VideoId> Search(string name)
+        private IEnumerable<string> Search(string name)
         {
             var query = name.Replace("+", "%2B").Replace(" ", "+");
 
 
-            var result = new  HashSet<VideoId>();
+            var result = new  HashSet<string>();
 
             WebClient webClient = new WebClient();
             webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
@@ -49,7 +49,7 @@ namespace MusicProviders
                         var temp = stopIdindex - startIdindex;
                         var id = rawData.Substring(startIdindex,temp);
                         
-                        result.Add(new VideoId(id));
+                        result.Add(id);
                         i = i + 22;
                     }
                 }
@@ -65,45 +65,38 @@ namespace MusicProviders
         {
 
 
+            var grabber = new DotNetTools.SharpGrabber.Internal.Grabbers.YouTubeGrabber();
 
             var songsIDs = Search(name).ToList();
-            
-           
-        
-            
 
-            var results = new List<Song>(songsIDs.Count);
+            var results = new List<Song>(count);
 
-            if(songsIDs.Count==0)
+            for (int i = 0; i < count; i++)
             {
-                return new List<Song>();
-            }
+                var item = songsIDs[i];
+                var res = grabber.GrabAsync(new Uri("https://www.youtube.com/watch?v=" + item)).Result;
 
-            for (int i = 0; i < 2; i++)
-            {
-                var id = songsIDs[i];
 
-               
+                //TODO: Get BEST sound here not first
+                var bestSound = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedMedia
+                                                    && !(((DotNetTools.SharpGrabber.Media.GrabbedMedia)r).Channels.HasVideo())).First();
 
-                var item = YoutubeClient.Videos.GetAsync(id).Result;
-               
+                var image = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedImage).First();
 
-                Song song = new Song()
-                {
-                    Author = item.Author,
-                    Name = item.Title,
-                    ImageURL=item.Thumbnails.LowResUrl
-                };
+
+                var nameOfSong = res.Title;
+                var author = res.Statistics.Author;
+                var song = new Song() { Author = author, Name = nameOfSong, ImageURL = image.ResourceUri.AbsoluteUri, FullLink = bestSound.ResourceUri.AbsoluteUri };
 
                 results.Add(song);
-              //  _ = Task.Run( async () => {
-              //      var streamManifest =await  YoutubeClient.Videos.Streams.GetManifestAsync(id); //this shit is 16s need sped up
-              //      song.FullLink =streamManifest.GetAudioOnly().WithHighestBitrate().Url;
-              //  });
-
-
-               // yield return song;
             }
+
+            
+
+
+
+
+         
             return results;
 
             

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Yove.Music;
+
 namespace MusicProviders
 {
     public class VKMusicProvider : MusicProvider
