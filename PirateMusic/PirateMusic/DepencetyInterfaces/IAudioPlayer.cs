@@ -7,8 +7,9 @@ namespace PirateMusic.DepencetyInterfaces
     public interface IAudioPlayer
     {
         string Current { get; set; }
-        bool Play();
-        bool Pause();
-        bool Stop();
+        void Play();
+        void Pause();
+        void Stop();
+        void SetTime(TimeSpan time);
     }
 }

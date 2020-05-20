@@ -4,6 +4,7 @@ using PirateMusic.Droid;
 using Android.Media;
 using PirateMusic.DepencetyInterfaces;
 
+
 [assembly: Dependency(typeof(AudioSerivce))]
 namespace PirateMusic.Droid
 {
@@ -16,42 +17,51 @@ namespace PirateMusic.Droid
 
         public AudioSerivce()
         {
-            
         }
 
-        public bool Play()
+        public void Play()
         {
+            
+            
 
             if (player.IsPlaying)
-                return false;
-               
-                player.SetDataSource(Current);
-                player.SetAudioStreamType(Stream.Music);
-                player.Prepare();
+                player.Stop();
             
-                player.Start();
+            player.SetDataSource(Current);
+            
+
+            player.Prepare();
+            player.Start();
            
 
 
-            return true;
+            
         }
 
-        public bool Stop()
+        public void Stop()
         {
             if (!player.IsPlaying)
-                return false;
+                return;
 
             player.Stop();
-            return true;
+          
         }
 
-        public bool Pause()
+        public void Pause()
         {
             if (!player.IsPlaying)
-                return false;
+                return ;
 
             player.Pause();
-            return true;
+            
+        }
+
+        public void SetTime(TimeSpan time)
+        {
+            if (!player.IsPlaying)
+                return;
+            player.SeekTo(time.Milliseconds);
+
         }
     }
 

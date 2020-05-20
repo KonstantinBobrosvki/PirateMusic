@@ -7,6 +7,6 @@ namespace MusicProviders
 {
     public abstract class MusicProvider
     {
-        public abstract IEnumerable<Song> GetSongs(string name,int count);
+        public abstract IAsyncEnumerable<Song> GetSongs(string name,int count);
     }
 }

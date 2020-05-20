@@ -24,7 +24,7 @@
             
         </ScrollView>
         
-        <Button x:Name="SearchButton" Grid.Row="2" Text="Search" BackgroundColor="#0EC10E" Clicked="SearchButton_Clicked"></Button>
+       
     </Grid>
 
 </ContentPage>

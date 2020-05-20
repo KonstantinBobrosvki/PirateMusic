@@ -61,11 +61,10 @@ namespace MusicProviders
             return result;
         }
       
-        public override IEnumerable<Song> GetSongs(string name,int count)
+        public async override IAsyncEnumerable<Song> GetSongs(string name,int count)
         {
 
 
-            var grabber = new DotNetTools.SharpGrabber.Internal.Grabbers.YouTubeGrabber();
 
             var songsIDs = Search(name).ToList();
 
@@ -73,31 +72,35 @@ namespace MusicProviders
 
             for (int i = 0; i < count; i++)
             {
-                var item = songsIDs[i];
-                var res = grabber.GrabAsync(new Uri("https://www.youtube.com/watch?v=" + item)).Result;
+               // Task.Run(() =>
+               // {
+                    var grabber = new DotNetTools.SharpGrabber.Internal.Grabbers.YouTubeGrabber();
+                    var item = songsIDs[i];
+                    var res = await grabber.GrabAsync(new Uri("https://www.youtube.com/watch?v=" + item));
 
 
-                //TODO: Get BEST sound here not first
-                var bestSound = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedMedia
-                                                    && !(((DotNetTools.SharpGrabber.Media.GrabbedMedia)r).Channels.HasVideo())).First();
+                    //TODO: Get BEST sound here not first
+                    var bestSound = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedMedia
+                                                        && !(((DotNetTools.SharpGrabber.Media.GrabbedMedia)r).Channels.HasVideo())).First();
 
-                var image = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedImage).First();
+                    var image = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedImage).First();
 
 
-                var nameOfSong = res.Title;
-                var author = res.Statistics.Author;
-                var song = new Song() { Author = author, Name = nameOfSong, ImageURL = image.ResourceUri.AbsoluteUri, FullLink = bestSound.ResourceUri.AbsoluteUri };
+                    var nameOfSong = res.Title;
+                    var author = res.Statistics.Author;
+                    var song = new Song() { Author = author, Name = nameOfSong, ImageURL = image.ResourceUri.AbsoluteUri, FullLink = bestSound.ResourceUri.AbsoluteUri };
 
-                results.Add(song);
+                    yield return song;
+               // });
             }
-
+          
             
 
 
 
 
          
-            return results;
+         //   return results;
 
             
         }

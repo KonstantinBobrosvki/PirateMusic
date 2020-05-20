@@ -23,34 +23,27 @@ namespace PirateMusic
             InitializeComponent();
         }
 
-        private  void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-           
+            YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
+
+
+            _ = Task.Run(async () =>
+               {
+
+
+                   SomeName.Items.Clear();
+                   var result = youtubeMusicProvider.GetSongs(SearchBar.Text, 10);
+                   await foreach (var item in result)
+                   {
+                       SomeName.Items.Add(item);
+                   }
+
+               });
         }
 
         
 
-        private void SearchButton_Clicked(object sender, EventArgs e)
-        {
-
-            YoutubeMusicProvider youtubeMusicProvider = new YoutubeMusicProvider();
-
-           
-            new Thread(async () =>
-            {
-                
-
-                SomeName.Items.Clear();
-                var result = youtubeMusicProvider.GetSongs(SearchBar.Text, 10);
-                foreach (var item in result)
-                {
-                   SomeName.Items.Add(item);
-                }
-
-            }).Start();
-
-
-
-        }
+       
     }
 }
