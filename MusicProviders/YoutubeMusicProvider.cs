@@ -61,7 +61,7 @@ namespace MusicProviders
             return result;
         }
       
-        public async override IAsyncEnumerable<Song> GetSongs(string name,int count)
+        public async override IAsyncEnumerable<Song> GetSongsAsync(string name,int count)
         {
 
 
@@ -70,10 +70,75 @@ namespace MusicProviders
 
             var results = new List<Song>(count);
 
+            var array = new List<Song>(results.Count);
+
+            var finished = 0;
+
             for (int i = 0; i < count; i++)
             {
-               // Task.Run(() =>
-               // {
+
+               _= Task.Run(async  () =>
+               {
+                    var grabber = new DotNetTools.SharpGrabber.Internal.Grabbers.YouTubeGrabber();
+                    var item = songsIDs[i];
+                    var res = await grabber.GrabAsync(new Uri("https://www.youtube.com/watch?v=" + item));
+                   
+
+                    //TODO: Get BEST sound here not first
+                    var bestSound = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedMedia
+                                                        && !(((DotNetTools.SharpGrabber.Media.GrabbedMedia)r).Channels.HasVideo())).First();
+
+                    var image = res.Resources.Where(r => r is DotNetTools.SharpGrabber.Media.GrabbedImage).First();
+
+
+                    var nameOfSong = res.Title;
+                    var author = res.Statistics.Author;
+                    var song = new Song() { Author = author, Name = nameOfSong, ImageURL = image.ResourceUri.AbsoluteUri, FullLink = bestSound.ResourceUri.AbsoluteUri };
+
+                    array.Add(song);
+                   finished++;
+               });
+            }   
+
+            while(finished<count)
+            {
+                
+            }
+
+            foreach (var item1 in array)
+            {
+                yield return item1;
+            }
+
+
+
+
+
+            //   return results;
+
+
+        }
+
+        public override IEnumerable<Song> GetSongs(string name, int maxCount)
+        {
+            var songsIDs = Search(name).ToList();
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+
+            
+            var countOfFinded = songsIDs.Count>maxCount ? maxCount:songsIDs.Count;
+
+            var results = new List<Song>(countOfFinded);
+
+            var finished = 0;
+
+            for (int i = 0; i < countOfFinded ; i++)
+            {
+
+                _ = Task.Run(async () =>
+                {
                     var grabber = new DotNetTools.SharpGrabber.Internal.Grabbers.YouTubeGrabber();
                     var item = songsIDs[i];
                     var res = await grabber.GrabAsync(new Uri("https://www.youtube.com/watch?v=" + item));
@@ -90,19 +155,24 @@ namespace MusicProviders
                     var author = res.Statistics.Author;
                     var song = new Song() { Author = author, Name = nameOfSong, ImageURL = image.ResourceUri.AbsoluteUri, FullLink = bestSound.ResourceUri.AbsoluteUri };
 
-                    yield return song;
-               // });
+                    results.Add(song);
+                    finished++;
+                });
             }
-          
-            
+
+            while (finished < countOfFinded)
+            {
+
+            }
+
+            stopwatch.Stop();
+
+            return results;
 
 
 
 
-         
-         //   return results;
 
-            
         }
     }
 }

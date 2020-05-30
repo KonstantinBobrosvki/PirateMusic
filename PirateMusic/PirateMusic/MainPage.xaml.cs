@@ -34,7 +34,7 @@ namespace PirateMusic
 
                    SomeName.Items.Clear();
                    var result = youtubeMusicProvider.GetSongs(SearchBar.Text, 10);
-                   await foreach (var item in result)
+                   foreach (var item in result)
                    {
                        SomeName.Items.Add(item);
                    }
